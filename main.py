@@ -9,8 +9,22 @@ from migrateDataDB import migrate_data
 
 if len(sys.argv) > 1:
     
-    if (sys.argv[1]=="import" and sys.argv[2]=="*.csv"):
+    if (sys.argv[1] == "--import" and (sys.argv[2]).isalpha):
+        print("Importing From CSV... Please Wait")
+        #importdata_from_csv(sys.argv[2])
 
+    elif (sys.argv[1]=="--migrate" and sys.argv[2].isalpha):
+        print("Migrating Now...Please Wait")
+        #migrate_data()
+
+    elif (sys.argv[1]== "--help"):
+        pass
+    else:
+        print("Something went wrong with the parameters Please Check")
+else:
+
+    print("Please Supply Some Argument To The Script")
+        
 
 
 

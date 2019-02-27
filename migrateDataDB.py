@@ -2,7 +2,6 @@ import re
 import csv
 import mysql.connector as mc
 from getConnection import get_connection
-import const
 
 def migrate_data():
     '''Gets data from the imported database, deals with all the conversions and stores them back into a new table '''
@@ -12,6 +11,7 @@ def migrate_data():
         sql_select_Query = "Select * from imported_data"
         cursor.execute (sql_select_Query)
         records = cursor.fetchall()
+        create_migrated_table()
         EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         USDINR_rate = int(input("Enter the conversion rate USD to INR"))
         
@@ -71,4 +71,26 @@ def dump_faulty_emails(email,name,age,location,income):
     except IOError as error:
         
         print("Error in dumping into csv file {}".format(error))
+
+def create_migrated_table():
+    """ Creates a table into the database"""
+    try:
+        
+        connection = get_connection()
+        
+        cursor = connection.cursor()
+        
+        sql_create_query="create table migrated_data (Name char(20),\
+                                                     Age int(2),\
+                                                     Location char(20),\
+                                                     Email varchar(40),\
+                                                     Income int(10)) "
+        
+        cursor.execute(sql_create_query)
+        
+        connection.commit()
+    
+    except mc.Error as error:
+
+        print("Error while making a table in MySQL {}". format(error))
 
