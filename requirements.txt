@@ -1,0 +1,7 @@
+mysql-connector==2.1.6
+mysql-connector-python==8.0.15
+pylint==2.2.2
+python-apt==1.6.3
+python-dateutil==2.8.0
+python-debian==0.1.32
+
