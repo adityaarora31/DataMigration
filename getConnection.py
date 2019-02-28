@@ -10,7 +10,5 @@ def get_connection():
                                             database='DataMigration')
         
         return connection
-    
     except mc.Error as error:
-        
         print("You have some error while connecting to the database {}". format(error))
